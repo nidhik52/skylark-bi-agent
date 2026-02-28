@@ -4,7 +4,7 @@
 
 ## 1. Hosted Prototype URL
 
-🔗 **`https://skylark-bi-agent-vabf.onrender.com/`** 
+🔗 **[https://skylark-bi-agent-vabf.onrender.com/](https://skylark-bi-agent-vabf.onrender.com/)**
 
 ---
 
@@ -12,8 +12,8 @@
 
 | Board | Link |
 |---|---|
-| Deal Funnel (ID `5026904002`) | **`https://nkambadkone515s-team.monday.com/boards/5026904002`** |
-| Work Order Tracker (ID `5026906296`) | **`https://nkambadkone515s-team.monday.com/boards/5026906296`** |
+| Deal Funnel (ID `5026904002`) | **[monday.com/boards/5026904002](https://nkambadkone515s-team.monday.com/boards/5026904002)** |
+| Work Order Tracker (ID `5026906296`) | **[monday.com/boards/5026906296](https://nkambadkone515s-team.monday.com/boards/5026906296)** |
 
 
 ---
