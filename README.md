@@ -69,7 +69,7 @@ Edit `.env`:
 MONDAY_API_KEY=your_monday_api_token
 GROQ_API_KEY=your_groq_api_key
 DEALS_BOARD_ID=5026904002
-WORK_ORDERS_BOARD_ID=5026904085
+WORK_ORDERS_BOARD_ID=5026906296
 ```
 
 ### 4. Run
@@ -112,7 +112,7 @@ The MCP server can be plugged directly into any MCP-compatible client — no Cha
       "env": {
         "MONDAY_API_KEY": "...",
         "DEALS_BOARD_ID": "5026904002",
-        "WORK_ORDERS_BOARD_ID": "5026904085"
+        "WORK_ORDERS_BOARD_ID": "5026906296"
       }
     }
   }
@@ -267,7 +267,7 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json` (Windows) or `~/Library/Appli
       "env": {
         "MONDAY_API_KEY": "your_monday_token",
         "DEALS_BOARD_ID": "5026904002",
-        "WORK_ORDERS_BOARD_ID": "5026904085"
+        "WORK_ORDERS_BOARD_ID": "5026906296"
       }
     }
   }
@@ -289,7 +289,7 @@ Open `Cursor Settings -> MCP` and add:
     "env": {
       "MONDAY_API_KEY": "your_monday_token",
       "DEALS_BOARD_ID": "5026904002",
-      "WORK_ORDERS_BOARD_ID": "5026904085"
+      "WORK_ORDERS_BOARD_ID": "5026906296"
     }
   }
 }
