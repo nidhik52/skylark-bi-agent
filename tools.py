@@ -297,11 +297,11 @@ def get_work_order_summary(
     wos = _filter_list(wos, filters)
 
     # Revenue fields
-    total_order_value = safe_sum([w.get("Amount in Rupees (Excl of GST) (Masked)") for w in wos])
-    total_billed = safe_sum([w.get("Billed Value in Rupees (Excl of GST.) (Masked)") for w in wos])
-    total_collected = safe_sum([w.get("Collected Amount in Rupees (Incl of GST.) (Masked)") for w in wos])
-    total_ar = safe_sum([w.get("Amount Receivable (Masked)") for w in wos])
-    to_be_billed = safe_sum([w.get("Amount to be billed in Rs. (Exl. of GST) (Masked)") for w in wos])
+    total_order_value = safe_sum([w.get("Amount in Rupees Excl of GST Masked") for w in wos])
+    total_billed = safe_sum([w.get("Billed Value in Rupees Excl of GST Masked") for w in wos])
+    total_collected = safe_sum([w.get("Collected Amount in Rupees Incl of GST Masked") for w in wos])
+    total_ar = safe_sum([w.get("Amount Receivable Masked") for w in wos])
+    to_be_billed = safe_sum([w.get("Amount to be billed in Rs Exl of GST Masked") for w in wos])
 
     # Status breakdown
     by_status = group_by(wos, "Execution Status")
@@ -310,7 +310,7 @@ def get_work_order_summary(
     # Sector breakdown
     by_sector = group_by(wos, "Sector")
     sector_summary = {
-        s: {"count": len(recs), "total_value": safe_sum([r.get("Amount in Rupees (Excl of GST) (Masked)") for r in recs])}
+        s: {"count": len(recs), "total_value": safe_sum([r.get("Amount in Rupees Excl of GST Masked") for r in recs])}
         for s, recs in by_sector.items()
     }
 
@@ -321,9 +321,9 @@ def get_work_order_summary(
     dq = data_quality_note(
         wos,
         [
-            "Amount in Rupees (Excl of GST) (Masked)",
-            "Billed Value in Rupees (Excl of GST.) (Masked)",
-            "Amount Receivable (Masked)",
+            "Amount in Rupees Excl of GST Masked",
+            "Billed Value in Rupees Excl of GST Masked",
+            "Amount Receivable Masked",
         ],
     )
 
@@ -362,7 +362,7 @@ def get_accounts_receivable(priority_only: bool = False, sector: str | None = No
 
     ar_records = []
     for w in wos:
-        ar_val = w.get("Amount Receivable (Masked)")
+        ar_val = w.get("Amount Receivable Masked")
         if ar_val and ar_val > 0:
             ar_records.append({
                 "Name": w.get("Name") or w.get("Deal name masked"),
@@ -377,7 +377,7 @@ def get_accounts_receivable(priority_only: bool = False, sector: str | None = No
 
     ar_records_sorted = sorted(ar_records, key=lambda x: x.get("AR_inr") or 0, reverse=True)
     total_ar = safe_sum([r["AR_inr"] for r in ar_records])
-    dq = data_quality_note(wos, ["Amount Receivable (Masked)", "Collection status"])
+    dq = data_quality_note(wos, ["Amount Receivable Masked", "Collection status"])
 
     return {
         "total_ar_inr": total_ar,
@@ -415,9 +415,9 @@ def get_revenue_by_sector(source: str = "both") -> dict:
         result["work_orders"] = {
             sector: {
                 "count": len(recs),
-                "total_order_value_inr": safe_sum([r.get("Amount in Rupees (Excl of GST) (Masked)") for r in recs]),
-                "total_billed_inr": safe_sum([r.get("Billed Value in Rupees (Excl of GST.) (Masked)") for r in recs]),
-                "total_ar_inr": safe_sum([r.get("Amount Receivable (Masked)") for r in recs]),
+                "total_order_value_inr": safe_sum([r.get("Amount in Rupees Excl of GST Masked") for r in recs]),
+                "total_billed_inr": safe_sum([r.get("Billed Value in Rupees Excl of GST Masked") for r in recs]),
+                "total_ar_inr": safe_sum([r.get("Amount Receivable Masked") for r in recs]),
             }
             for sector, recs in by_sector.items()
         }
@@ -456,8 +456,8 @@ def get_overdue_work_orders(days_ahead: int = 0) -> dict:
                         "Execution_Status": w.get("Execution Status"),
                         "Probable_End_Date": end_date_str,
                         "Days_Overdue": days_overdue,
-                        "Order_Value_INR": w.get("Amount in Rupees (Excl of GST) (Masked)"),
-                        "WO_Status": w.get("WO Status (billed)"),
+                        "Order_Value_INR": w.get("Amount in Rupees Excl of GST Masked"),
+                        "WO_Status": w.get("WO Status billed"),
                     })
             except ValueError:
                 pass

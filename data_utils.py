@@ -137,21 +137,21 @@ def clean_deal_record(record: dict) -> dict:
 def clean_work_order_record(record: dict) -> dict:
     """Normalise a single work-order record fetched from Monday.com."""
     numeric_fields = [
-        "Amount in Rupees (Excl of GST) (Masked)",
-        "Amount in Rupees (Incl of GST) (Masked)",
-        "Billed Value in Rupees (Excl of GST.) (Masked)",
-        "Billed Value in Rupees (Incl of GST.) (Masked)",
-        "Collected Amount in Rupees (Incl of GST.) (Masked)",
-        "Amount to be billed in Rs. (Exl. of GST) (Masked)",
-        "Amount to be billed in Rs. (Incl. of GST) (Masked)",
-        "Amount Receivable (Masked)",
+        "Amount in Rupees Excl of GST Masked",
+        "Amount in Rupees Incl of GST Masked",
+        "Billed Value in Rupees Excl of GST Masked",
+        "Billed Value in Rupees Incl of GST Masked",
+        "Collected Amount in Rupees Incl of GST Masked",
+        "Amount to be billed in Rs Exl of GST Masked",
+        "Amount to be billed in Rs Incl of GST Masked",
+        "Amount Receivable Masked",
         "Quantity by Ops",
         "Quantities as per PO",
-        "Quantity billed (till date)",
+        "Quantity billed till date",
         "Balance in quantity",
     ]
     date_fields = [
-        "Date of PO/LOI",
+        "Date of POLOI",
         "Probable Start Date",
         "Probable End Date",
         "Data Delivery Date",
@@ -161,7 +161,7 @@ def clean_work_order_record(record: dict) -> dict:
         "Actual Collection Month",
         "Collection Date",
     ]
-    status_fields = ["Execution Status", "WO Status (billed)", "Invoice Status", "Billing Status", "Collection status"]
+    status_fields = ["Execution Status", "WO Status billed", "Invoice Status", "Billing Status", "Collection status"]
 
     out = dict(record)
     for f in numeric_fields:

@@ -42,10 +42,9 @@ def load_deals() -> pd.DataFrame:
 
 
 def load_work_orders() -> pd.DataFrame:
-    # Row 0 is the actual header
-    df = pd.read_excel(WO_FILE, header=None)
-    df.columns = [str(v).strip() for v in df.iloc[0]]
-    df = df.iloc[1:].reset_index(drop=True)
+    # Row 0 is empty; row 1 (0-indexed) contains the actual headers
+    df = pd.read_excel(WO_FILE, header=1)
+    df.columns = [str(c).strip() for c in df.columns]
     return df
 
 
