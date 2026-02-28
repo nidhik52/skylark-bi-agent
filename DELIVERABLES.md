@@ -49,9 +49,9 @@ Covers:
 
 ## 5. Source Code ZIP + README
 
-📦 **`skylark-bi-agent.zip`** — included in submission
+📦 **<a href="https://github.com/nidhik52/skylark-bi-agent/raw/main/skylark-bi-agent.zip" target="_blank" rel="noopener noreferrer">skylark-bi-agent.zip</a>** — download directly from GitHub
 
-📄 [`README.md`](README.md) — quick-start, architecture diagram, tool reference, deployment guide
+📄 <a href="https://github.com/nidhik52/skylark-bi-agent/blob/main/README.md" target="_blank" rel="noopener noreferrer">README.md</a> — quick-start, architecture diagram, tool reference, deployment guide
 
 🔗 GitHub repo: <a href="https://github.com/nidhik52/skylark-bi-agent" target="_blank" rel="noopener noreferrer">https://github.com/nidhik52/skylark-bi-agent</a>
 
