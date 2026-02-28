@@ -4,7 +4,107 @@
 
 ## 1. Tech Stack Choices
 
-### LLM: DeepSeek-V3
+### LLM: Groq (`meta-llama/llama-4-scout-17b-16e-instruct`)
+
+Several LLM providers were trialled during development due to free-tier credit exhaustion:
+
+| Provider | Model | Outcome |
+|---|---|---|
+| OpenAI | gpt-4o-mini | Rate limit exhausted |
+| Anthropic | claude-3-haiku | Credit exhausted |
+| DeepSeek | deepseek-v3 | Credit exhausted |
+| Google | gemini-2.0-flash | Billing enabled on project - free tier disabled |
+| Groq | llama-4-scout-17b | **Selected** - free, 30K TPM, 500K TPD |
+
+Groq was chosen as the final provider because:
+- **Genuinely free** - 30,000 tokens per minute, 500,000 per day on the free tier
+- **OpenAI-compatible API** - single `base_url` swap, no prompt changes
+- **Tool calling support** - llama-4-scout handles function/tool schemas reliably
+- **Fast inference** - LPU hardware, typically <1 s TTFT
+
+One Groq-specific quirk: the model sends integer/boolean parameters as JSON strings (e.g. `"20"` instead of `20`). FastMCP validates schema before calling functions, so all numeric/bool tool parameters are typed as `str` in `mcp_server.py` and cast internally.
+
+### Interface: Chainlit
+
+Switched from Streamlit because:
+- Purpose-built for LLM chat - native async, collapsible `Step` components for tool-call traces, proper message threading
+- Built-in action buttons (`cl.Action`) for suggested questions
+- `@cl.on_message` / `@cl.action_callback` decorators replace session-state boilerplate
+- Tool call traces are visible by default with expand/collapse - satisfies the "visible action/tool-call trace" requirement
+
+### Monday.com Integration: FastMCP + GraphQL
+
+An MCP layer (`mcp_server.py`) wraps all Monday.com tools because:
+- The same server runs inside Chainlit (via `agent.py` subprocess) AND works with Claude Desktop / Cursor with zero code changes
+- Decouples the LLM driver from the data layer
+- Every invocation is a fresh live API call - no caching
+
+**Monday.com API version**: pinned to `2023-10`. Version `2024-01` removed the `title` field from `ColumnValue`, which broke column mapping. The `title` is now fetched separately via `columns { id title }` metadata query and injected at runtime.
+
+---
+
+## 2. Data Handling Decisions
+
+### Column name normalisation
+
+`import_boards.py` sanitises column titles before creating Monday.com columns (strips `/`, `(`, `)` to avoid API rejections). This means `Sector/service` → `Sectorservice` on the board. All field lookups in `tools.py` and `data_utils.py` use the sanitised names.
+
+### Normalisation approach
+
+Data is cleaned at query time inside `data_utils.py`, not at import time:
+- Monetary values: strip `₹`, `$`, commas, whitespace → `float`
+- Dates: `dateutil.parse` handles all observed formats → ISO `YYYY-MM-DD`
+- Status strings: case-insensitive map covers `"in progress"`, `"In Progress"`, `"Ongoing"`, etc.
+- Numbers stored as text (e.g. `"₹1,23,456"`) → float
+
+### Filtering: client-side
+
+Monday.com's GraphQL column-value filters are fragile with text fields and inconsistent casing. All filtering is done in Python after fetching the full board. With <500 rows per board this runs in <2 s and supports fuzzy/substring matching.
+
+---
+
+## 3. Agent Design Decisions
+
+### Tool granularity: 8 specific tools
+
+Rather than 1-2 generic "fetch everything" tools:
+- The model selects tools more reliably when each has a clear, specific purpose
+- Each tool accepts filters, reducing data returned to the LLM
+- Traces are readable - the user sees exactly which tool was called with which arguments
+
+### Token budget management
+
+`llama-3.1-8b-instant` (6K TPM) was too small for the tool schemas + conversation history. Switched to `llama-4-scout-17b` (30K TPM). Additionally:
+- Tool descriptions trimmed to single-line docstrings (~300 tokens saved per request)
+- System prompt shortened to one sentence (~80 tokens saved)
+- `max_tool_rounds=8` prevents runaway loops
+
+### Conversation continuity
+
+Full conversation history passed on every turn, enabling follow-up questions ("What about Mining specifically?") without restating context.
+
+---
+
+## 4. Assumptions Made
+
+| Assumption | Reason |
+|---|---|
+| Masked deal/WO names are intentional | Excel uses codenames (Naruto, Sasuke) and masked company codes |
+| "Closed" and "Won" are equivalent for won-deal metrics | The data uses both interchangeably |
+| Financial values are in INR | Consistent with Indian company context |
+| `Tentative Close Date` used for pipeline filtering, not `Close Date A` | 92% of `Close Date A` values are null |
+| Work Order board data is limited | Column creation during import silently failed; WO tool responses reflect this honestly |
+
+---
+
+## 5. What I Would Add With More Time
+
+- **Streaming responses** - Groq supports `stream=True`; Chainlit has `cl.Message.stream_token()` - answers would appear word-by-word
+- **Chart generation** - plotly figures rendered inline in chat for pipeline/AR visualisations
+- **Auth layer** - Chainlit's `@cl.password_auth_callback` for production use
+- **WO board re-import** - column creation failed silently; with the original Excel a re-run of `import_boards.py` against the existing board ID would populate all work order fields
+- **Webhook cache invalidation** - listen to Monday.com change events, invalidate board cache selectively for a "live but fast" hybrid
+
 
 OpenAI's rate limit was exhausted during development. DeepSeek was chosen as the replacement because:
 - **Free tier** - $2 pre-loaded credit, ~$0.14/M tokens (cache miss), essentially free for prototyping

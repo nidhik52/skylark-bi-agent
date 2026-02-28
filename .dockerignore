@@ -1,0 +1,12 @@
+.env
+.git/
+.chainlit/
+.files/
+__pycache__/
+*.pyc
+*.pyo
+*.xlsx
+_diag.py
+_test*.py
+.DS_Store
+Thumbs.db
