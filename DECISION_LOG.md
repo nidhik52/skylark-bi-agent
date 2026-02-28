@@ -24,6 +24,16 @@ Groq was chosen as the final provider because:
 
 One Groq-specific quirk: the model sends integer/boolean parameters as JSON strings (e.g. `"20"` instead of `20`). FastMCP validates schema before calling functions, so all numeric/bool tool parameters are typed as `str` in `mcp_server.py` and cast internally.
 
+### Hosting: Render (over Railway)
+
+Railway was the initial deployment target (free trial available at the time). The free trial expired during development, and Railway's ongoing hosting requires a paid plan ($5/month). Render was chosen as the replacement because:
+- **Free tier with no credit card** — Web Services on Render's free plan have no time-boxed trial
+- **Docker-native** — auto-detects the `Dockerfile`, no extra config files needed beyond what was already committed
+- **Environment variable management** — identical UX to Railway (dashboard secrets tab)
+- **Public URL** — every deploy gets a stable `*.onrender.com` subdomain
+
+Trade-off accepted: Render free tier spins down after 15 minutes of inactivity (cold-start ~30 s). Acceptable for a demo submission.
+
 ### Interface: Chainlit
 
 Switched from Streamlit because:

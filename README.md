@@ -161,20 +161,24 @@ skylark-bi-agent/
 chainlit run app.py
 ```
 
-### Railway (recommended for sharing)
+### Render (recommended for sharing)
+
+1. Push this repo to GitHub
+2. Go to [render.com](https://render.com) → New → **Web Service** → connect GitHub repo
+3. Runtime: **Docker** (auto-detected from `Dockerfile`)
+4. Add environment variables (`MONDAY_API_KEY`, `GROQ_API_KEY`, `DEALS_BOARD_ID`, `WORK_ORDERS_BOARD_ID`) in the dashboard
+5. Deploy — Render provides a public `*.onrender.com` URL
+
+> Free tier note: the service spins down after 15 minutes of inactivity and cold-starts on the next request (~30 s). Fine for demos.
+
+### Railway (alternative — requires paid plan)
 
 1. Push this repo to GitHub
 2. Go to [railway.app](https://railway.app) → New Project → Deploy from GitHub
-3. Add environment variables (`MONDAY_API_KEY`, `GROQ_API_KEY`, `DEALS_BOARD_ID`, `WORK_ORDERS_BOARD_ID`)
-4. Set start command: `chainlit run app.py --host 0.0.0.0 --port $PORT`
+3. Add environment variables in the Variables tab
+4. Railway auto-detects the `Dockerfile`
 
-### Render
-
-1. New Web Service → connect GitHub repo
-2. Runtime: Python 3
-3. Build command: `pip install -r requirements.txt`
-4. Start command: `chainlit run app.py --host 0.0.0.0 --port $PORT`
-5. Add env vars in the dashboard
+> Railway's free trial is limited — a paid Hobby plan ($5/month) is required for persistent hosting.
 
 ### Docker
 
