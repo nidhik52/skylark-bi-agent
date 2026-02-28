@@ -4,7 +4,7 @@
 
 ## 1. Hosted Prototype URL
 
-🔗 **[https://skylark-bi-agent-vabf.onrender.com/](https://skylark-bi-agent-vabf.onrender.com/)**
+🔗 **<a href="https://skylark-bi-agent-vabf.onrender.com/" target="_blank" rel="noopener noreferrer">https://skylark-bi-agent-vabf.onrender.com/</a>**
 
 ---
 
@@ -12,8 +12,8 @@
 
 | Board | Link |
 |---|---|
-| Deal Funnel (ID `5026904002`) | **[monday.com/boards/5026904002](https://nkambadkone515s-team.monday.com/boards/5026904002)** |
-| Work Order Tracker (ID `5026906296`) | **[monday.com/boards/5026906296](https://nkambadkone515s-team.monday.com/boards/5026906296)** |
+| Deal Funnel (ID `5026904002`) | **<a href="https://nkambadkone515s-team.monday.com/boards/5026904002" target="_blank" rel="noopener noreferrer">monday.com/boards/5026904002</a>** |
+| Work Order Tracker (ID `5026906296`) | **<a href="https://nkambadkone515s-team.monday.com/boards/5026906296" target="_blank" rel="noopener noreferrer">monday.com/boards/5026906296</a>** |
 
 
 ---
@@ -35,7 +35,7 @@ No extra configuration needed — traces appear automatically on every agent res
 📄 [`DECISION_LOG.md`](DECISION_LOG.md)
 
 Also available on GitHub:  
-🔗 https://github.com/nidhik52/skylark-bi-agent/blob/main/DECISION_LOG.md
+🔗 <a href="https://github.com/nidhik52/skylark-bi-agent/blob/main/DECISION_LOG.md" target="_blank" rel="noopener noreferrer">https://github.com/nidhik52/skylark-bi-agent/blob/main/DECISION_LOG.md</a>
 
 Covers:
 - LLM provider selection (Groq over OpenAI / Anthropic / DeepSeek / Gemini)
@@ -53,6 +53,6 @@ Covers:
 
 📄 [`README.md`](README.md) — quick-start, architecture diagram, tool reference, deployment guide
 
-🔗 GitHub repo: https://github.com/nidhik52/skylark-bi-agent
+🔗 GitHub repo: <a href="https://github.com/nidhik52/skylark-bi-agent" target="_blank" rel="noopener noreferrer">https://github.com/nidhik52/skylark-bi-agent</a>
 
 ---
