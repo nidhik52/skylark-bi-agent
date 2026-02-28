@@ -4,9 +4,7 @@
 
 ## 1. Hosted Prototype URL
 
-> ⏳ Build in progress on Render — update this link once deploy completes.
-
-🔗 **`https://skylark-bi-agent.onrender.com`** *(placeholder — replace with actual Render URL)*
+🔗 **`https://skylark-bi-agent-vabf.onrender.com/`** 
 
 ---
 
@@ -14,10 +12,9 @@
 
 | Board | Link |
 |---|---|
-| Deal Funnel (ID `5026904002`) | *(paste `view.monday.com/...` share link here)* |
-| Work Order Tracker (ID `5026906296`) | *(paste `view.monday.com/...` share link here)* |
+| Deal Funnel (ID `5026904002`) | **`https://nkambadkone515s-team.monday.com/boards/5026904002`** |
+| Work Order Tracker (ID `5026906296`) | **`https://nkambadkone515s-team.monday.com/boards/5026906296`** |
 
-To generate: open each board in Monday.com → **Share** → **Create shareable link**.
 
 ---
 
@@ -59,13 +56,3 @@ Covers:
 🔗 GitHub repo: https://github.com/nidhik52/skylark-bi-agent
 
 ---
-
-## Checklist
-
-| # | Deliverable | Status |
-|---|---|---|
-| 1 | Hosted prototype URL | ⏳ Render building |
-| 2 | Monday.com board share links | ⏳ Manual — generate from board Share menu |
-| 3 | Visible tool-call trace | ✅ Chainlit `cl.Step` (live in app) |
-| 4 | Decision Log ≤ 2 pages | ✅ `DECISION_LOG.md` |
-| 5 | Source ZIP + README | ✅ `skylark-bi-agent.zip` + `README.md` |
