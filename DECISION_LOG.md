@@ -1,7 +1,5 @@
 # Decision Log - Skylark Monday.com BI Agent
 
-**Candidate submission · AI Engineer Technical Assignment**
-
 ---
 
 ## 1. Tech Stack Choices
